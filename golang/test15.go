@@ -37,5 +37,4 @@ func (wtg *WaitTimeoutGroup) WaitTimeout() bool {
 	}()
 
 	return <-waitC
-
 }

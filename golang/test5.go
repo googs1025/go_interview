@@ -6,7 +6,7 @@ import (
 )
 
 /*
-	函数设置超时时间控制
+	函数设置超时时间控制: 使用 time.After(时间) 控制超时
 */
 
 func task() chan int {
