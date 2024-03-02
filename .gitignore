@@ -2,6 +2,8 @@
 propare
 # Binaries for programs and plugins
 *.exe
+.DS_Store
+.idea
 *.exe~
 *.dll
 *.so

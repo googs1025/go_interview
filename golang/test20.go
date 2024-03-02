@@ -22,9 +22,11 @@ func main() {
 	//defer calc("2", a, calc("20", a, b))
 
 	// 第三题
-	fmt.Println(DeferFunc1(1))
-	fmt.Println(DeferFunc2(1))
-	fmt.Println(DeferFunc3(1))
+	//fmt.Println(DeferFunc1(1))
+	//fmt.Println(DeferFunc2(1))
+	//fmt.Println(DeferFunc3(1))
+	// 第四题
+	test()
 }
 
 // 第一题
@@ -69,4 +71,27 @@ func DeferFunc3(i int) int {
 	t := i
 	t += i
 	return t
+}
+
+func test() {
+
+	// 请比较一下这几种的区别。
+	// 注意因为使用闭包，for 遍历其实会把i改为3 但发现 i < 3 不会再去执行了，
+	// 此时 defer 会开始执行，所以打印都是3
+	for i := 0; i < 3; i++ {
+		// 这个会全部打印出 3 3 3
+		defer func() {
+			fmt.Println(i)
+		}()
+
+		// 以下两种都不使用闭包，提前把变量放入defer中。
+		// 2 1 0
+		defer fmt.Println(i)
+
+		// 2 1 0
+		defer func(i int) {
+			fmt.Println(i)
+		}(i)
+	}
+
 }
