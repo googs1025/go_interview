@@ -12,10 +12,10 @@ import (
 
 func producer(inputC chan int) {
 
+	// 当生产者完成生产后，关闭通道
 	defer close(inputC)
 
 	for i := 0; i < 10; i++ {
-
 		inputC <- rand.Int()
 		time.Sleep(time.Second)
 	}
@@ -29,9 +29,8 @@ func consumer(inputC chan int, stopC chan struct{}) {
 			fmt.Println(num)
 		}(i)
 	}
-
+	// 当消费者完成消费后，关闭通道
 	stopC <- struct{}{}
-
 }
 
 func main() {

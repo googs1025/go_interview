@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"sync"
 	"time"
 )
@@ -37,4 +38,25 @@ func (wtg *WaitTimeoutGroup) WaitTimeout() bool {
 	}()
 
 	return <-waitC
+}
+
+func main() {
+	wg := NewWaitTimeoutGroup(time.Second * 2)
+
+	for i := 0; i < 10; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+
+			fmt.Println("working...")
+			time.Sleep(time.Second * 3)
+		}()
+	}
+
+	// 是否超时。
+	if wg.WaitTimeout() {
+		fmt.Println("timeout!")
+	} else {
+		fmt.Println("done!")
+	}
 }

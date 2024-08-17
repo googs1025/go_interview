@@ -36,6 +36,7 @@ func main() {
 			defer func() {
 				wg.Done()
 				// 完成前需要放回！
+				// 很重要
 				<-numC
 			}()
 			fmt.Println(i)
